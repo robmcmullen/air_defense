@@ -1,0 +1,53 @@
+;
+;   GAME 1.0
+;   --------
+;
+;   BY ROB McMULLEN
+;   ---------------
+;
+;   OS VARIABLES
+;
+DOSVEC	= $0A 
+SDMCTL	= $022F 
+SDLSTL	= $0230 
+COLDST	= $0244 
+GPRIOR	= $026F 
+STICK0	= $0278 
+STRIG0	= $0284 
+PCOLR0	= $02C0 
+COLOR0	= $02C4 
+RUNAD	= $02E0 
+CHBAS	= $02F4 
+CH	= $02FC 
+HPOSP0	= $D000 
+HPOSM0	= $D004 
+SIZEP0	= $D008 
+SIZEM	= $D00C 
+HITCLR	= $D01E 
+COLSOL	= $D01F 
+AUDF1	= $D200 
+AUDC1	= $D201 
+RANDOM	= $D20A 
+HSCROL	= $D404 
+VSCROL	= $D405 
+PMBASE	= $D407 
+CHBASE	= $D409 
+SETVBV	= $E45C 
+SYSVBV	= $E45F 
+XITVBV	= $E462 
+;
+;   ZERO PAGE VARS.
+;
+XPOS	*= *+1 
+YPOS	*= *+1 
+YOLD	*= *+1 
+XVEL	*= *+2 
+YVEL	*= *+2 
+;
+PMLOC	*= $4000 
+;
+	*= $6000 
+INIT	; 	LDA # <INIT
+	; 	STA DOSVEC
+	; 	LDA # >INIT
+	; 	STA DOSVEC+1
