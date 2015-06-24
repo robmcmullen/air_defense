@@ -59,6 +59,7 @@ XSAVE	*= *+1
 YSAVE	*= *+1 
 PLOTPOS	*= *+1 
 TEMP	*= *+1 
+DCOLSV	*= *+1 
 ;
 ;   CONSTANTS
 ;
@@ -107,12 +108,12 @@ GAMEINIT
 	STA SDLSTL
 	LDA #>DLIST
 	STA SDLSTL+1 
-;   LDA #192
-;   STA NMIEN
-;   LDA # <DLI
-;   STA VDSLST
-;   LDA # >DLI
-;   STA VDSLST+1
+	LDA #192 
+	STA NMIEN
+	LDA #<DLI
+	STA VDSLST
+	LDA #>DLI
+	STA VDSLST+1 
 	LDA #>PMLOC
 	STA PMBASE
 	LDA #62 
@@ -133,6 +134,8 @@ GAMEINIT
 	STA PCOLR0+1 
 	LDA #$0D 
 	STA PCOLR0+3 
+	LDA #$0A 
+	STA DCOLSV
 	LDA #0 
 	TAY 
 CLMEM	STA PMM,Y
@@ -248,9 +251,18 @@ CREDITS	.SBYTE "  ANALOG COMPUTING  "
 	.SBYTE "       A. D. C.      AIR DEFENSE COMMAND"
 	.SBYTE "   BY ROB MCMULLEN"
 ;
+DLI	PHA 
+	LDA DCOLSV
+	CLC 
+	ADC #$10 
+	STA DCOLSV
+	STA COLPF0+2 
+	PLA 
+	RTI 
+;
 DLIST	.BYTE $70 ,$70 ,$46 
 	.WORD SCRSCO
-	.BYTE $4E 
+	.BYTE $CE 
 	.WORD SCREEN
 	.BYTE 14 ,14 ,14 ,14 ,14 ,14 ,14 
 	.BYTE 14 ,14 ,14 ,14 ,14 ,14 ,14 
@@ -292,9 +304,13 @@ PMGUN	.BYTE 0 ,0 ,0 ,0 ,0 ,$7E ,$7E ,$F0
 	.BYTE 0 ,6 ,$0E ,$1C ,$38 ,$70 ,$60 ,$F0 
 	.BYTE 0 ,$0C ,$1C ,$38 ,$30 ,$70 ,$60 ,$F0 
 	.BYTE 0 ,$18 ,$18 ,$38 ,$30 ,$70 ,$60 ,$F0 
+	.BYTE 0 ,$18 ,$38 ,$30 ,$30 ,$70 ,$60 ,$F0 
 	.BYTE 0 ,$30 ,$30 ,$30 ,$60 ,$60 ,$60 ,$F0 
+	.BYTE 0 ,$30 ,$30 ,$60 ,$60 ,$60 ,$60 ,$F0 
 	.BYTE 0 ,$60 ,$60 ,$60 ,$60 ,$60 ,$60 ,$F0 
+	.BYTE 0 ,$0C ,$0C ,6 ,6 ,6 ,6 ,$0F 
 	.BYTE 0 ,$0C ,$0C ,$0C ,6 ,6 ,6 ,$0F 
+	.BYTE 0 ,$18 ,$1C ,$0C ,$0C ,$0E ,6 ,$0F 
 	.BYTE 0 ,$18 ,$18 ,$1C ,$0C ,$0E ,6 ,$0F 
 	.BYTE 0 ,$30 ,$38 ,$1C ,$0C ,$0E ,6 ,$0F 
 	.BYTE 0 ,$60 ,$70 ,$38 ,$1C ,$0E ,6 ,$0F 
@@ -306,7 +322,7 @@ PMGUN	.BYTE 0 ,0 ,0 ,0 ,0 ,$7E ,$7E ,$F0
 GUNMOVE
 	LDY #126 
 	LDA GUNDIR
-	CMP #9 
+	CMP #11 
 	BCC GUN1
 	LDY #122 
 GUN1	STY HPOSP0+3 
@@ -323,7 +339,7 @@ GUN2	LDA PMGUN,Y
 	BCC GUN2
 	RTS 
 ;
-START	LDA #8 
+START	LDA #10 
 	STA GUNDIR
 ST0	LDA #0 
 	STA RTCLOK
@@ -341,9 +357,9 @@ ST2	LDA GUNDIR
 	BPL ST3
 	LDA #0 
 	STA GUNDIR
-ST3	CMP #17 
+ST3	CMP #21 
 	BCC ST4
-	LDA #16 
+	LDA #20 
 	STA GUNDIR
 ST4	LDA STRIG0
 	BNE ST0
@@ -400,14 +416,14 @@ PLOTC1	.BYTE $40 ,$10 ,4 ,1
 PLOTC2	.BYTE $80 ,$20 ,8 ,2 
 PLOTC3	.BYTE $C0 ,$30 ,$0C ,3 
 ;
-XDIRP1	.BYTE 2 ,2 ,2 ,2 ,2 ,1 ,1 ,0 ,0 ,0 
-	.BYTE -1 ,-1 ,-2 ,-2 ,-2 ,-2 ,-2 
-XDIRP2	.BYTE 2 ,2 ,2 ,2 ,2 ,2 ,1 ,1 ,0 
-	.BYTE -1 ,-1 ,-2 ,-2 ,-2 ,-2 ,-2 ,-2 
-YDIRP1	.BYTE 0 ,0 ,1 ,1 ,2 ,2 ,2 ,2 ,2 
-	.BYTE 2 ,2 ,2 ,2 ,1 ,1 ,0 ,0 
-YDIRP2	.BYTE 0 ,1 ,1 ,2 ,2 ,2 ,2 ,2 ,2 
-	.BYTE 2 ,2 ,2 ,2 ,2 ,1 ,1 ,0 
+XDIRP1	.BYTE 2 ,2 ,2 ,2 ,2 ,2 ,2 ,1 ,1 ,0 ,0 ,0 ,-1 ,-1 
+	.BYTE -2 ,-2 ,-2 ,-2 ,-2 ,-2 ,-2 
+XDIRP2	.BYTE 2 ,2 ,2 ,2 ,2 ,3 ,2 ,2 ,1 ,1 ,0 ,-1 ,-1 
+	.BYTE -2 ,-2 ,-3 ,-2 ,-2 ,-2 ,-2 ,-2 
+YDIRP1	.BYTE 0 ,0 ,1 ,1 ,2 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 
+	.BYTE 3 ,3 ,3 ,2 ,1 ,1 ,0 ,0 
+YDIRP2	.BYTE 0 ,1 ,1 ,2 ,2 ,3 ,3 ,3 ,3 ,3 ,3 ,3 ,3 
+	.BYTE 3 ,3 ,3 ,2 ,2 ,1 ,1 ,0 
 ;
 BULLET
 	LDY #7 
