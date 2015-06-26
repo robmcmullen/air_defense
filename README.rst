@@ -1,7 +1,7 @@
 Air Defense
 ===========
 
-This is an incomplete game, a port of Sabotage that I started work on back
+This is an incomplete game, inspired by Sabotage that I started work on back
 in 1984 or 1985.  I was able to rescue the source off of one of my old 5.25"
 floppy disks, and found that I had used a pretty common source code control
 system of the day: including the version number of the game in the filename.
@@ -28,3 +28,24 @@ randomly generated terrain, and a score.
 
 There would be lots of stuff to do to make this a complete game and I'm not
 sure I'll ever do it, but at least it's here.
+
+
+License
+=======
+
+Air Defense
+Copyright (c) 1984-2015 Rob McMullen (feedback@playermissile.com)
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
