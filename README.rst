@@ -12,7 +12,7 @@ The source code was in Mac/65 tokenized format, which was described in an
 ANALOG magazine that I can't find the reference to at the moment, but was
 also coded up into a `C program that can translate Mac/65 tokenized files
 into plain text files <http://atariage.com/forums/blog/293/entry-6765-demac65-
-detokenize-mac65- files/ >`_ by AtariAge user ivop.
+detokenize-mac65-files/>`_ by AtariAge user ivop.
 
 I used this program to convert the code to text, added the changes one-by-
 one to the file game.s, and committed each to this git repository.
