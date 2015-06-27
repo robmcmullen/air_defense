@@ -643,7 +643,7 @@ GETEXP	LDA (LO),Y
 	AND PLMASK,X
 	ORA PLOTCLR
 	STA (LO),Y
-GEXP1	TYA 
+GEXP1	TYA 		; double the height by plotting another pixel 40 bytes down
 	CLC 
 	ADC #40 
 	TAY 
